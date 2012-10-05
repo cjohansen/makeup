@@ -52,5 +52,9 @@ module Makeup
         "<pre class=\"#{hb.lexer} #{@markup_class_name}\">#{hb.code}</pre>"
       end
     end
+
+    def self.can_render?(path)
+      GitHub::Markup.can_render?(path)
+    end
   end
 end

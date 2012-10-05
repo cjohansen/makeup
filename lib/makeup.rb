@@ -22,7 +22,9 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 #++
+require "makeup/markup"
+require "makeup/syntax_highlighter"
 
 module Makeup
-  VERSION = "0.1.0"
+  VERSION = "0.1.1"
 end
