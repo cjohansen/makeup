@@ -1,9 +1,10 @@
 # -*- encoding: utf-8 -*-
 dir = File.expand_path(File.dirname(__FILE__))
+require File.join(dir, "lib", "makeup")
 
 Gem::Specification.new do |s|
   s.name        = "makeup"
-  s.version     = "0.1.0"
+  s.version     = Makeup::VERSION
   s.authors     = ["Christian Johansen"]
   s.email       = ["christian@gitorious.org"]
   s.homepage    = "http://gitorious.org/gitorious/makeup"
@@ -24,7 +25,7 @@ markdown files.
   s.add_development_dependency "rake", "~> 0.9"
   s.add_development_dependency "redcarpet"
 
-  s.files         = `git ls-files`
+  s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test}/*`.split("\n")
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
