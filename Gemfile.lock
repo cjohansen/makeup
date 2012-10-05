@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    makeup (0.0.0)
+    makeup (0.1.0)
       github-markup (~> 0.7)
       htmlentities (~> 4.3)
       pygments.rb (~> 0.2)
