@@ -1,0 +1,31 @@
+# -*- encoding: utf-8 -*-
+dir = File.expand_path(File.dirname(__FILE__))
+
+Gem::Specification.new do |s|
+  s.name        = "makeup"
+  s.version     = "0.1.0"
+  s.authors     = ["Christian Johansen"]
+  s.email       = ["christian@gitorious.org"]
+  s.homepage    = "http://gitorious.org/gitorious/makeup"
+  s.summary     = %q{Pretty markup}
+  s.description = <<-DESC
+Makeup provides markup rendering and code highlighting. It renders all kinds of
+markup formats using GitHub::Markup, and implements "fenced code blocks" for
+markdown files.
+  DESC
+
+  s.rubyforge_project = "makeup"
+
+  s.add_dependency "pygments.rb", "~>0.2"
+  s.add_dependency "github-markup", "~> 0.7"
+  s.add_dependency "htmlentities", "~> 4.3"
+
+  s.add_development_dependency "minitest", "~> 2.0"
+  s.add_development_dependency "rake", "~> 0.9"
+  s.add_development_dependency "redcarpet"
+
+  s.files         = `git ls-files`
+  s.test_files    = `git ls-files -- {test}/*`.split("\n")
+  s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
+  s.require_paths = ["lib"]
+end
