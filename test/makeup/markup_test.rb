@@ -89,4 +89,13 @@ describe Makeup::Markup do
       assert_match "\n  <span class=\"p\">(</span>", highlighted
     end
   end
+
+  describe "markups" do
+    it "provides a list of supported markups" do
+      markups = Makeup::Markup.markups
+
+      assert Array === markups
+      assert(markups.find { |m| m[:suffix] == "*.md" })
+    end
+  end
 end

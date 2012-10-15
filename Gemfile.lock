@@ -17,7 +17,7 @@ GEM
       posix-spawn (~> 0.3.6)
       yajl-ruby (~> 1.1.0)
     rake (0.9.2.2)
-    redcarpet (2.1.1)
+    redcarpet (2.2.0)
     yajl-ruby (1.1.0)
 
 PLATFORMS
@@ -27,4 +27,4 @@ DEPENDENCIES
   makeup!
   minitest (~> 2.0)
   rake (~> 0.9)
-  redcarpet
+  redcarpet (= 2.2.0)
