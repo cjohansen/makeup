@@ -63,7 +63,7 @@ module Makeup
     end
 
     def closes_code_block?(line)
-      active_code_block? && line == "```"
+      active_code_block? && line.match(/^```/)
     end
 
     def start_code_block(line)
