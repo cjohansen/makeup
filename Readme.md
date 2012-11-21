@@ -1,5 +1,9 @@
 # Makeup
 
+<a href="http://travis-ci.org/cjohansen/makeup" class="travis">
+  <img src="https://secure.travis-ci.org/cjohansen/makeup.png">
+</a>
+
 Makeup provides markup rendering and syntax highlighting in one glorious
 package. It can also syntax highlight "fenced code blocks" in markdown files.
 
