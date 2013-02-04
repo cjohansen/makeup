@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 dir = File.expand_path(File.dirname(__FILE__))
-require File.join(dir, "lib", "makeup.rb")
+require File.join(dir, "lib", "makeup/version.rb")
 
 Gem::Specification.new do |s|
   s.name        = "makeup"
