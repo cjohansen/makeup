@@ -22,5 +22,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 #++
-require "makeup/markup"
+require "makeup/version"
+require "makeup/syntax_highlighter"
 require "makeup/syntax_highlighter"
