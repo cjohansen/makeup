@@ -1,8 +1,9 @@
 # encoding: utf-8
 # --
 # The MIT License (MIT)
+# Christian Johansen
 #
-# Copyright (C) 2012-2013 Gitorious AS
+# Copyright (C) 2013 Gitorious AS
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
