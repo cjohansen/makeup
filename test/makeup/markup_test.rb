@@ -40,7 +40,7 @@ describe Makeup::Markup do
 ```
       MD
 
-      assert_match "<pre class=\"common-lisp prettyprint\">", html
+      assert_match "<pre class=\"common_lisp prettyprint\">", html
     end
 
     it "highlights multiple separate multi-line code blocks" do
@@ -60,10 +60,10 @@ describe Makeup::Markup do
 ```
       MD
 
-      assert_equal 2, html.scan(/common-lisp/).length
+      assert_equal 2, html.scan(/\"common_lisp/).length
     end
   end
-  
+
   describe "#render" do
     it "should detect end of code blocks properly" do
       html = @renderer.render("file.md", <<-MD)
@@ -87,8 +87,8 @@ class Bonjour
 end
 ```
       MD
-      
-      assert_equal 2, html.scan(/rb/).length
+
+      assert_equal 2, html.scan(/ruby/).length
     end
   end
 
@@ -102,7 +102,7 @@ end
     it "highlights one-line code block" do
       content = "```cl\n(yup)\n```"
       highlighted = @renderer.highlight_code_blocks("file.md", content)
-      assert_match "common-lisp", highlighted
+      assert_match "cl", highlighted
     end
 
     it "highlights multi-line code block" do

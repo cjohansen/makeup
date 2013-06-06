@@ -17,7 +17,8 @@ markdown files.
 
   s.rubyforge_project = "makeup"
 
-  s.add_dependency "pygments.rb", "~>0.2"
+  #s.add_dependency "pygments.rb", "~>0.2"
+  s.add_dependency "rouge", "~>0.3"
   s.add_dependency "github-markup", "~> 0.7"
   s.add_dependency "htmlentities", "~> 4.3"
 

@@ -22,7 +22,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 #++
-require "pygments"
+require "rouge"
 require "htmlentities"
 
 module Makeup
@@ -34,13 +34,12 @@ module Makeup
     end
 
     def highlight(path, code, options = {})
-      options[:lexer] ||= lexer(path, code)
-      lexer = Pygments::Lexer.find(options[:lexer])
-      CodeBlock.new(lexer && lexer.aliases.first,
-                    Pygments.highlight(code, highlight_options(options)))
-    rescue MentosError => e
-      # "MentosError" is what Pyments.rb raises when an unknown lexer is
-      # attempted used
+      lx = options[:lexer] || lexer(path, code)
+      lexer = Rouge::Lexer.find(lx)
+      CodeBlock.new(lexer.tag, Rouge.highlight(code, lx, "html"))
+    rescue RuntimeError => e
+      # Rouge raises a RuntimeError when an unknown lexer is attempted
+      # used
       CodeBlock.new(nil, @entities.encode(code))
     end
 
@@ -50,8 +49,10 @@ module Makeup
 
     def self.lexer(suffix, code = nil)
       return @@lexer_aliases[suffix] if @@lexer_aliases[suffix]
-      lexer = Pygments::Lexer.find_by_extname(".#{suffix}")
-      return lexer.aliases.first || lexer.name if lexer
+      lexer = Rouge::Lexer.find_fancy(suffix)
+      return lexer.class.tag if lexer
+      lexer = Rouge::Lexer.find_fancy("guess", code)
+      return lexer.class.tag if lexer
       shebang_language(shebang(code)) || suffix
     end
 
@@ -86,9 +87,9 @@ module Makeup
 end
 
 Makeup::SyntaxHighlighter.add_lexer_alias("txt", "text")
-Makeup::SyntaxHighlighter.add_lexer_alias("ru", "rb")
+Makeup::SyntaxHighlighter.add_lexer_alias("ru", "ruby")
 Makeup::SyntaxHighlighter.add_lexer_alias("Rakefile", "rb")
 Makeup::SyntaxHighlighter.add_lexer_alias("Gemfile", "rb")
 Makeup::SyntaxHighlighter.add_lexer_alias("Gemfile.lock", "yaml")
-
+Makeup::SyntaxHighlighter.add_lexer_alias("htm", "html")
 Makeup::SyntaxHighlighter.add_lexer_shebang(/\bruby\b/, "rb")
