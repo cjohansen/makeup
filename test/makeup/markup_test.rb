@@ -63,7 +63,7 @@ describe Makeup::Markup do
       assert_equal 2, html.scan(/common-lisp/).length
     end
   end
-  
+
   describe "#render" do
     it "should detect end of code blocks properly" do
       html = @renderer.render("file.md", <<-MD)
@@ -87,7 +87,7 @@ class Bonjour
 end
 ```
       MD
-      
+
       assert_equal 2, html.scan(/rb/).length
     end
   end
