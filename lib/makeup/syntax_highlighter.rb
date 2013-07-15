@@ -24,6 +24,7 @@
 #++
 require "pygments"
 require "htmlentities"
+require "linguist"
 
 module Makeup
   CodeBlock = Struct.new(:lexer, :code)
@@ -36,43 +37,21 @@ module Makeup
     def highlight(path, code, options = {})
       options[:lexer] ||= lexer(path, code)
       lexer = Pygments::Lexer.find(options[:lexer])
-      CodeBlock.new(lexer && lexer.aliases.first,
-                    Pygments.highlight(code, highlight_options(options)))
+      code = lexer.nil? ? code : Pygments.highlight(code, highlight_options(options))
+      CodeBlock.new(lexer && lexer.aliases.first, code)
     rescue MentosError => e
       # "MentosError" is what Pyments.rb raises when an unknown lexer is
       # attempted used
       CodeBlock.new(nil, @entities.encode(code))
     end
 
-    def lexer(path, code = nil)
-      self.class.lexer(path.split(".").pop, code)
+    def lexer(path, code = nil, mode = nil)
+      self.class.lexer(path, code, mode)
     end
 
-    def self.lexer(suffix, code = nil)
-      return @@lexer_aliases[suffix] if @@lexer_aliases[suffix]
-      lexer = Pygments::Lexer.find_by_extname(".#{suffix}")
-      return lexer.aliases.first || lexer.name if lexer
-      shebang_language(shebang(code)) || suffix
-    end
-
-    def self.shebang(code)
-      first_line = (code || "").split("\n")[0]
-      first_line =~ /^#!/ ? first_line : nil
-    end
-
-    def self.shebang_language(shebang)
-      shebang = @@lexer_shebangs.find { |s| (shebang || "") =~ s[:pattern] }
-      shebang && shebang[:lexer]
-    end
-
-    def self.add_lexer_alias(extension, lexer)
-      @@lexer_aliases ||= {}
-      @@lexer_aliases[extension] = lexer
-    end
-
-    def self.add_lexer_shebang(pattern, lexer)
-      @@lexer_shebangs ||= []
-      @@lexer_shebangs << { :pattern => pattern, :lexer => lexer }
+    def self.lexer(path, code = nil, mode = nil)
+      lexer = Linguist::Language.detect(path, code, mode)
+      lexer && (lexer.aliases.first || lexer.name)
     end
 
     private
@@ -84,11 +63,3 @@ module Makeup
     end
   end
 end
-
-Makeup::SyntaxHighlighter.add_lexer_alias("txt", "text")
-Makeup::SyntaxHighlighter.add_lexer_alias("ru", "rb")
-Makeup::SyntaxHighlighter.add_lexer_alias("Rakefile", "rb")
-Makeup::SyntaxHighlighter.add_lexer_alias("Gemfile", "rb")
-Makeup::SyntaxHighlighter.add_lexer_alias("Gemfile.lock", "yaml")
-
-Makeup::SyntaxHighlighter.add_lexer_shebang(/\bruby\b/, "rb")

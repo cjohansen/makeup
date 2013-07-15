@@ -62,14 +62,6 @@ describe Makeup::SyntaxHighlighter do
       assert_match "Hey<span class=\"nt\">&lt;/h1&gt;</span>", html
     end
 
-    it "highlights file with custom suffix" do
-      Makeup::SyntaxHighlighter.add_lexer_alias("derp", "rb")
-      html = highlight("file.derp", "class File")
-
-      assert_match "<span class=\"k\">class</span>", html
-      assert_match "<span class=\"nc\">File</span>", html
-    end
-
     it "skips highlighting if lexer is missing" do
       html = highlight("file.trololol", "Yeah yeah yeah")
 
@@ -79,30 +71,7 @@ describe Makeup::SyntaxHighlighter do
 
   describe "#lexer" do
     it "uses known suffix" do
-      assert_equal "rb", @highlighter.lexer("file.rb")
-    end
-
-    it "uses registered suffix" do
-      Makeup::SyntaxHighlighter.add_lexer_alias("blarg", "blarg")
-      assert_equal "blarg", @highlighter.lexer("file.blarg")
-    end
-
-    it "uses registered lexer" do
-      Makeup::SyntaxHighlighter.add_lexer_alias("bg", "blarg")
-      assert_equal "blarg", @highlighter.lexer("file.bg")
-    end
-
-    it "uses known shebang" do
-      assert_equal "rb", @highlighter.lexer("some-binary", "#!/usr/bin/env ruby\n")
-    end
-
-    it "uses registered shebang" do
-      Makeup::SyntaxHighlighter.add_lexer_shebang(/\bnode\b/, "js")
-      assert_equal "js", @highlighter.lexer("some-binary", "#!/usr/bin/env node\n")
-    end
-
-    it "uses filename for unknown lexer" do
-      assert_equal "some-binary", @highlighter.lexer("some-binary", "class Person\nend")
+      assert_equal "ruby", @highlighter.lexer("file.rb")
     end
   end
 end
