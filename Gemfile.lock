@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    makeup (0.4.0)
+    makeup (0.4.1)
       github-linguist (~> 2.8)
       github-markup (~> 0.7)
       htmlentities (~> 4.3)
@@ -22,7 +22,7 @@ GEM
       pygments.rb (~> 0.4.2)
     github-markup (0.7.5)
     htmlentities (4.3.1)
-    mime-types (1.23)
+    mime-types (1.24)
     minitest (2.12.1)
     multi_json (1.7.7)
     posix-spawn (0.3.6)
