@@ -67,6 +67,12 @@ describe Makeup::SyntaxHighlighter do
 
       assert_equal "Yeah yeah yeah", html
     end
+
+    it "encodes the html entities even with no highliting" do
+      html = highlight("file.trololol", "<script>alert('xss')</script>")
+
+      assert_equal "&lt;script&gt;alert(&apos;xss&apos;)&lt;/script&gt;", html
+    end
   end
 
   describe "#lexer" do

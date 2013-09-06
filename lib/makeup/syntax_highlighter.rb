@@ -37,12 +37,11 @@ module Makeup
     def highlight(path, code, options = {})
       options[:lexer] ||= lexer(path, code)
       lexer = Pygments::Lexer.find(options[:lexer])
-      code = lexer.nil? ? code : Pygments.highlight(code, highlight_options(options))
-      CodeBlock.new(lexer && lexer.aliases.first, code)
-    rescue MentosError => e
-      # "MentosError" is what Pyments.rb raises when an unknown lexer is
-      # attempted used
-      CodeBlock.new(nil, @entities.encode(code))
+      return unknown_lexer(code) unless lexer
+      code = Pygments.highlight(code, highlight_options(options))
+      CodeBlock.new(lexer.aliases.first, code)
+    rescue MentosError
+      unknown_lexer(code)
     end
 
     def lexer(path, code = nil, mode = nil)
@@ -55,6 +54,11 @@ module Makeup
     end
 
     private
+
+    def unknown_lexer(code)
+      CodeBlock.new(nil, @entities.encode(code))
+    end
+
     def highlight_options(options = {})
       options[:options] ||= {}
       options[:options][:nowrap] = true
