@@ -62,6 +62,18 @@ describe Makeup::Markup do
 
       assert_equal 2, html.scan(/common-lisp/).length
     end
+
+    it "strips unsafe html attributes and elements" do
+      md = <<-MD
+<script>alert("foo")</script>
+<a href="foo" data-destroy="boom" onclick="alert('foo')">link</a>
+*bar*
+      MD
+
+      html = @renderer.render("file.md", md)
+
+      assert_equal %Q{<p><a href="foo">link</a>\n<em>bar</em></p>}, html
+    end
   end
 
   describe "#render" do

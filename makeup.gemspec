@@ -21,6 +21,7 @@ markdown files.
   s.add_dependency "github-linguist", "~>2.8"
   s.add_dependency "github-markup", "~> 0.7"
   s.add_dependency "htmlentities", "~> 4.3"
+  s.add_dependency "loofah", "~> 1.2"
 
   s.add_development_dependency "minitest", "~> 2.0"
   s.add_development_dependency "rake", "~> 0.9"

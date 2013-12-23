@@ -22,6 +22,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 #++
+require "loofah"
 require "github/markup"
 require "makeup/code_block_parser"
 require "makeup/syntax_highlighter"
@@ -56,7 +57,11 @@ module Makeup
 
     def render(path, content)
       content = highlight_code_blocks(path, content)
-      GitHub::Markup.render(path, content)
+      sanitize(GitHub::Markup.render(path, content))
+    end
+
+    def sanitize(html)
+      Loofah.fragment(html).scrub!(:prune).to_s
     end
 
     def highlight_code_blocks(path, markup)
