@@ -135,7 +135,7 @@ end
       markups = Makeup::Markup.markups
 
       assert Array === markups
-      assert(markups.find { |m| m[:suffix] == "*.md" })
+      assert(markups.find { |m| m.match?("*.md") })
     end
   end
 end

@@ -28,20 +28,6 @@ require "makeup/code_block_parser"
 require "makeup/syntax_highlighter"
 
 module Makeup
-  # Ugly work-around to access GitHub::Markup's @@markups without
-  # monkey-patching the module.
-  module GitHubMarkupAccessor
-    include GitHub::Markup
-
-    def self.markups
-      @@supported ||= (@@markups.keys.map do |key|
-         key.to_s.match(/\(\?-mix:(.*)\)/)[1].split("|").map do |s|
-           { :suffix => "*.#{s}" }
-         end
-       end).flatten
-    end
-  end
-
   class NoopHighlighter
     def highlight(path, code, options = {})
       lexer = options[:lexer] || path.split(".").last
@@ -77,7 +63,7 @@ module Makeup
     end
 
     def self.markups
-      GitHubMarkupAccessor.markups
+      GitHub::Markup.markups
     end
   end
 end
