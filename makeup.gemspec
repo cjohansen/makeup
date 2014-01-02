@@ -19,7 +19,7 @@ markdown files.
 
   s.add_dependency "pygments.rb", "~>0.4", "<= 0.5.2"
   s.add_dependency "github-linguist", "~>2.8"
-  s.add_dependency "github-markup", "~> 0.7"
+  s.add_dependency "github-markup", "~> 1.0"
   s.add_dependency "htmlentities", "~> 4.3"
   s.add_dependency "loofah", "~> 1.2"
 
