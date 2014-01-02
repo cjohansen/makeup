@@ -8,6 +8,7 @@ Gem::Specification.new do |s|
   s.authors     = ["Christian Johansen"]
   s.email       = ["christian@gitorious.org"]
   s.homepage    = "https://gitorious.org/gitorious/makeup"
+  s.license     = "MIT"
   s.summary     = %q{Pretty markup}
   s.description = <<-DESC
 Makeup provides markup rendering and code highlighting. It renders all kinds of
