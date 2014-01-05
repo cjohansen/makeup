@@ -72,7 +72,16 @@ describe Makeup::Markup do
 
       html = @renderer.render("file.md", md)
 
-      assert_equal %Q{<p><a href="foo">link</a>\n<em>bar</em></p>}, html
+      sanitized = %Q{<p><a href="foo">link</a>\n<em>bar</em></p>}
+
+      if Nokogiri::VersionInfo.new.loaded_parser_version > '2.9.0' \
+        and sanitized != html
+        # loofah with newer libxml2 leaves blank lines in output.
+        # https://github.com/flavorjones/loofah/issues/60
+        assert_equal sanitized, html.gsub(/\n+|\r+/, "\n").squeeze("\n").strip
+      else
+        assert_equal sanitized, html
+      end
     end
   end
 
