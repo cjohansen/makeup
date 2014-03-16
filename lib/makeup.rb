@@ -25,4 +25,4 @@
 #++
 require "makeup/version"
 require "makeup/syntax_highlighter"
-require "makeup/syntax_highlighter"
+require "makeup/markup"
